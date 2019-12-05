@@ -74,7 +74,7 @@ let g:hjkl_warning_enable     = exists('g:hjkl_warning_enable'     ) ? g:hjkl_wa
 
 command! HJKLWarningToggle :let g:hjkl_warning_enable = !g:hjkl_warning_enable
 
-augroup hjkl-makeinu
+augroup hjkl-warning
   autocmd!
   autocmd CursorMoved * call s:main()
   autocmd CmdwinEnter,CmdlineEnter * call s:close_window()
