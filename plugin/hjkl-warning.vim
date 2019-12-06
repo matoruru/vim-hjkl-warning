@@ -19,6 +19,7 @@ function! s:create_window()
         \ 'row': 1,
         \ 'col': 0,
         \ 'external': v:false,
+        \ 'style': 'minimal'
         \})
     let s:is_window_open = v:true
   endif
@@ -64,12 +65,12 @@ function! s:main()
   endif
 endfunction
 
-let g:hjkl_warning_win_width  = exists('g:hjkl_warning_win_width'  ) ? g:hjkl_warning_win_width  : 39
+let g:hjkl_warning_win_width  = exists('g:hjkl_warning_win_width'  ) ? g:hjkl_warning_win_width  : 41
 let g:hjkl_warning_win_height = exists('g:hjkl_warning_win_height' ) ? g:hjkl_warning_win_height : 2
 let g:hjkl_warning_min_column = exists('g:hjkl_warning_min_column' ) ? g:hjkl_warning_min_column : 4
 let g:hjkl_warning_min_line   = exists('g:hjkl_warning_min_line'   ) ? g:hjkl_warning_min_line   : 4
 let g:hjkl_warning_max_repeat = exists('g:hjkl_warning_max_repeat' ) ? g:hjkl_warning_max_repeat : 5
-let g:hjkl_warning_message    = exists('g:hjkl_warning_message'    ) ? g:hjkl_warning_message    : ["You press too much h/j/k/l to move!"]
+let g:hjkl_warning_message    = exists('g:hjkl_warning_message'    ) ? g:hjkl_warning_message    : ["You press too many times h/j/k/l to move!"]
 let g:hjkl_warning_enable     = exists('g:hjkl_warning_enable'     ) ? g:hjkl_warning_enable     : v:true
 
 command! HJKLWarningToggle :let g:hjkl_warning_enable = !g:hjkl_warning_enable
