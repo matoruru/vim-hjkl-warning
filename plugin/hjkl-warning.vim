@@ -11,7 +11,9 @@ let s:oldPos = s:getLineCol()
 function! s:create_window()
   if !s:is_window_open
     let l:buf = nvim_create_buf(v:false, v:true)
-    call nvim_buf_set_lines(buf, 0, 0, v:true, ["[hjkl-warning]:"] + g:hjkl_warning_message)
+    let l:text = g:hjkl_warning_enable_title ? [g:hjkl_warning_title] + g:hjkl_warning_message : g:hjkl_warning_message
+    echo l:text
+    call nvim_buf_set_lines(buf, 0, 0, v:true, l:text)
     let s:win_id = nvim_open_win(l:buf, v:false, {
         \ 'width': g:hjkl_warning_win_width,
         \ 'height': g:hjkl_warning_win_height,
@@ -65,13 +67,15 @@ function! s:main()
   endif
 endfunction
 
-let g:hjkl_warning_win_width  = exists('g:hjkl_warning_win_width'  ) ? g:hjkl_warning_win_width  : 41
-let g:hjkl_warning_win_height = exists('g:hjkl_warning_win_height' ) ? g:hjkl_warning_win_height : 2
-let g:hjkl_warning_min_column = exists('g:hjkl_warning_min_column' ) ? g:hjkl_warning_min_column : 4
-let g:hjkl_warning_min_line   = exists('g:hjkl_warning_min_line'   ) ? g:hjkl_warning_min_line   : 4
-let g:hjkl_warning_max_repeat = exists('g:hjkl_warning_max_repeat' ) ? g:hjkl_warning_max_repeat : 5
-let g:hjkl_warning_message    = exists('g:hjkl_warning_message'    ) ? g:hjkl_warning_message    : ["You press too many times h/j/k/l to move!"]
-let g:hjkl_warning_enable     = exists('g:hjkl_warning_enable'     ) ? g:hjkl_warning_enable     : v:true
+let g:hjkl_warning_win_width    = exists('g:hjkl_warning_win_width'   ) ? g:hjkl_warning_win_width    : 41
+let g:hjkl_warning_win_height   = exists('g:hjkl_warning_win_height'  ) ? g:hjkl_warning_win_height   : 2
+let g:hjkl_warning_min_column   = exists('g:hjkl_warning_min_column'  ) ? g:hjkl_warning_min_column   : 4
+let g:hjkl_warning_min_line     = exists('g:hjkl_warning_min_line'    ) ? g:hjkl_warning_min_line     : 4
+let g:hjkl_warning_max_repeat   = exists('g:hjkl_warning_max_repeat'  ) ? g:hjkl_warning_max_repeat   : 5
+let g:hjkl_warning_message      = exists('g:hjkl_warning_message'     ) ? g:hjkl_warning_message      : ["You press too many times h/j/k/l to move!"]
+let g:hjkl_warning_enable       = exists('g:hjkl_warning_enable'      ) ? g:hjkl_warning_enable       : v:true
+let g:hjkl_warning_enable_title = exists('g:hjkl_warning_enable_title') ? g:hjkl_warning_enable_title : v:true
+let g:hjkl_warning_title        = exists('g:hjkl_warning_title'       ) ? g:hjkl_warning_title        : "[hjkl-warning]:"
 
 command! HJKLWarningToggle :let g:hjkl_warning_enable = !g:hjkl_warning_enable
 
