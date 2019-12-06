@@ -12,7 +12,6 @@ function! s:create_window()
   if !s:is_window_open
     let l:buf = nvim_create_buf(v:false, v:true)
     let l:text = g:hjkl_warning_enable_title ? [g:hjkl_warning_title] + g:hjkl_warning_message : g:hjkl_warning_message
-    echo l:text
     call nvim_buf_set_lines(buf, 0, 0, v:true, l:text)
     let s:win_id = nvim_open_win(l:buf, v:false, {
         \ 'width': g:hjkl_warning_win_width,
