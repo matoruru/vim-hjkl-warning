@@ -10,7 +10,7 @@ This plugin can help you to notice whether you have a bad practice to move in Vi
 
 Use your favorite plugin manager.
 
-```vimscript
+```vim
 " Your ~/.vimrc or ~/.config/nvim/init.vim
 
 Plug 'matoruru/vim-hjkl-warning'
@@ -20,7 +20,7 @@ Currently, vim-plug is the only tested for this plugin.
 
 ## Options
 
-```vimscript
+```vim
 " Your ~/.vimrc or ~/.config/nvim/init.vim
 
 " Change the width/height of floating window.
@@ -51,6 +51,6 @@ g:hjkl_warning_title        = "[hjkl-warning]:"
 
 Turn this plugin's feature on/off:
 
-```vimscript
+```vim
 :HJKLWarningToggle
 ```
