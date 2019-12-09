@@ -28,8 +28,8 @@ g:hjkl_warning_win_width    = 41
 g:hjkl_warning_win_height   = 2
 
 " Change the border to warn.
-" In this case, the effective movement means to move over 4 characters in a line or over 3 lines.
-" Or not, that is the inefficient. You see a warning when you repeat that inefficient over 5 times.
+" In this case, the effective movement means to move over 4 characters in the current line or over 3 lines.
+" If not, that is the inefficient way. You see a warning when you repeat it over 5 times.
 g:hjkl_warning_min_column   = 4
 g:hjkl_warning_min_line     = 3
 g:hjkl_warning_max_repeat   = 5
