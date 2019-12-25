@@ -10,25 +10,39 @@ let s:oldPos = s:getLineCol()
 
 function! s:create_window()
   if !s:is_window_open
-    let l:buf = nvim_create_buf(v:false, v:true)
     let l:text = g:hjkl_warning_enable_title ? [g:hjkl_warning_title] + g:hjkl_warning_message : g:hjkl_warning_message
-    call nvim_buf_set_lines(buf, 0, 0, v:true, l:text)
-    let s:win_id = nvim_open_win(l:buf, v:false, {
-        \ 'width': g:hjkl_warning_win_width,
-        \ 'height': g:hjkl_warning_win_height,
-        \ 'relative': 'cursor',
-        \ 'row': 1,
-        \ 'col': 0,
-        \ 'external': v:false,
-        \ 'style': 'minimal'
-        \})
+    if has('nvim')
+      let l:buf = nvim_create_buf(v:false, v:true)
+      call nvim_buf_set_lines(buf, 0, 0, v:true, l:text)
+      let s:win_id = nvim_open_win(l:buf, v:false, {
+          \ 'width': g:hjkl_warning_win_width,
+          \ 'height': g:hjkl_warning_win_height,
+          \ 'relative': 'cursor',
+          \ 'row': 1,
+          \ 'col': 0,
+          \ 'external': v:false,
+          \ 'style': 'minimal'
+          \})
+    else
+      let s:win_id = popup_create(l:text, {
+          \ 'maxwidth': g:hjkl_warning_win_width,
+          \ 'maxheight': g:hjkl_warning_win_height,
+          \ 'pos': 'topleft',
+          \ 'line': 'cursor+1',
+          \ 'col': 'cursor'
+          \})
+    endif
     let s:is_window_open = v:true
   endif
 endfunction
 
 function! s:close_window()
   if s:is_window_open
-    call nvim_win_close(s:win_id, v:false)
+    if has('nvim')
+      call nvim_win_close(s:win_id, v:false)
+    else
+      call popup_close(s:win_id)
+    endif
     let s:is_window_open = v:false
   endif
 endfunction
@@ -46,13 +60,23 @@ function! s:update(newPos)
 endfunction
 
 function! s:warn(win_id)
-  call nvim_win_set_config(a:win_id, {
-      \ 'width': g:hjkl_warning_win_width,
-      \ 'height': g:hjkl_warning_win_height,
-      \ 'relative': 'cursor',
-      \ 'row': 1,
-      \ 'col': 0,
+  if has('nvim')
+    call nvim_win_set_config(a:win_id, {
+        \ 'width': g:hjkl_warning_win_width,
+        \ 'height': g:hjkl_warning_win_height,
+        \ 'relative': 'cursor',
+        \ 'row': 1,
+        \ 'col': 0,
+        \})
+  else
+    call popup_move(a:win_id, {
+      \ 'maxwidth': g:hjkl_warning_win_width,
+      \ 'maxheight': g:hjkl_warning_win_height,
+      \ 'pos': 'topleft',
+      \ 'line': 'cursor+1',
+      \ 'col': 'cursor'
       \})
+  endif
 endfunction
 
 function! s:main()
